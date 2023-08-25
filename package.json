@@ -1,0 +1,19 @@
+{
+  "name": "travel-manager-app",
+  "version": "1.0.0",
+  "description": "Backend do travel-manager",
+  "main": "index.js",
+  "repository": "git@github.com:ramirezmz/travel-manager-app.git",
+  "author": "ramirezmz <robertopaoloramirezmunoz7@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^38.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "*"
+  }
+}
