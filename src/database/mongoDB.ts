@@ -40,8 +40,8 @@ class MongoDB implements ICrud {
   create(item: any) {
     return this.schema.create(item);
   }
-  read(item: any): Promise<any> {
-    throw new Error("Method not implemented.");
+  read(item: any, skip: number = 0, limit: number = 10): Promise<any> {
+    return this.schema.find(item).skip(skip).limit(limit);
   }
   update(id: string, item: any): Promise<any> {
     throw new Error("Method not implemented.");
