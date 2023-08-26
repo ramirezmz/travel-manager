@@ -7,7 +7,7 @@
   "author": "ramirezmz <robertopaoloramirezmunoz7@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test:unit": "mocha --recursive --require ts-node/register src/**/*.spec.ts",
+    "test:unit": "mocha --recursive --require ts-node/register 'src/**/*.spec.ts'",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
