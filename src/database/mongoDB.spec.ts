@@ -9,13 +9,21 @@ let context: any;
 const MOCK_USER_DEFAULT = {
   name: `Homen de Ferro-${Date.now()}`,
   age: 25,
+  email: `homen_de_ferro${Date.now()}@mail.com`,
 };
 
 describe("MongoDB Suite de testes", function () {
+  let pedroId: any;
   this.timeout(Infinity);
   this.beforeAll(async function () {
     const connection = await MongoDB.connect();
     context = new ContextStrategy(new MongoDB(connection, UserSchema));
+
+    pedroId = await context.create({
+      name: "Pedro",
+      age: 2,
+      email: `pedro${Date.now()}@mail.com`,
+    });
   });
 
   describe("isConnection", () => {
@@ -26,8 +34,8 @@ describe("MongoDB Suite de testes", function () {
   });
   describe("Create User", () => {
     it("Should create a user with correct params", async () => {
-      const { name, age } = await context.create(MOCK_USER_DEFAULT);
-      assert.deepStrictEqual({ name, age }, MOCK_USER_DEFAULT);
+      const { name, age, email } = await context.create(MOCK_USER_DEFAULT);
+      assert.deepStrictEqual({ name, age, email }, MOCK_USER_DEFAULT);
     });
     it("Should return throw error when it not passed obrigatory params", async () => {
       try {
@@ -41,11 +49,27 @@ describe("MongoDB Suite de testes", function () {
         );
       }
     });
+    it("Should return 0 when passed duplicated email", async () => {
+      try {
+        const MOCK = {
+          name: "Pedro",
+          age: 2,
+          email: pedroId.email,
+        };
+        await context.create(MOCK);
+      } catch (error: any) {
+        assert.deepStrictEqual(error.index, 0);
+      }
+    });
   });
   describe("Find Users", () => {
     it("Should return a list of users", async () => {
       const result = await context.read({}, 0, 10);
       assert.ok(Array.isArray(result));
+    });
+    it("Should return a user when it passed correct id or email", async () => {
+      const result = await context.read({ _id: pedroId._id });
+      assert.deepStrictEqual(result[0].name, "Pedro");
     });
   });
 });
