@@ -25,7 +25,6 @@ describe("MongoDB Suite de testes", function () {
       email: `pedro${Date.now()}@mail.com`,
     });
   });
-
   describe("isConnection", () => {
     it("Should return true when connection was done", async () => {
       const result = await context.isConnected();
@@ -72,7 +71,6 @@ describe("MongoDB Suite de testes", function () {
       assert.deepStrictEqual(result[0].name, "Pedro");
     });
   });
-
   describe("Update User", () => {
     it("Should update a user when it passed correct id", async () => {
       const getPedroId = pedroId._id.toString();
@@ -80,6 +78,13 @@ describe("MongoDB Suite de testes", function () {
         name: "Messi",
       });
       assert.deepStrictEqual(result.modifiedCount, 1);
+    });
+  });
+  describe("Delete User", () => {
+    it("Should delete a user when it passed correct id", async () => {
+      const getPedroId = pedroId._id.toString();
+      const result = await context.delete(getPedroId);
+      assert.deepStrictEqual(result.deletedCount, 1);
     });
   });
 });

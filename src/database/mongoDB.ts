@@ -47,7 +47,7 @@ class MongoDB implements ICrud {
     return this.schema.updateOne({ _id: id }, { $set: item });
   }
   delete(id: string): Promise<any> {
-    throw new Error("Method not implemented.");
+    return this.schema.deleteOne({ _id: id });
   }
 }
 
