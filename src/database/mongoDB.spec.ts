@@ -87,4 +87,13 @@ describe("MongoDB Suite de testes", function () {
       assert.deepStrictEqual(result.deletedCount, 1);
     });
   });
+  describe("Test", () => {
+    it("Update user", async () => {
+      const result = await context.update("64f000ee626bdc270f5c7c96", {
+        name: "asdasdas",
+        updatedAt: new Date(),
+      });
+      assert.deepStrictEqual(result.modifiedCount, 1);
+    });
+  });
 });
