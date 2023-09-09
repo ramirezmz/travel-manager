@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: new Date(),
   },
   createdBy: {
     _id: {
@@ -24,6 +23,31 @@ const UserSchema = new mongoose.Schema({
       ref: "User",
     },
   },
+  updatedAt: {
+    type: Date,
+  },
+  updatedBy: {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  },
+});
+
+UserSchema.pre("save", function (next) {
+  const now = new Date();
+  if (!this.createdAt) {
+    this.createdAt = now;
+    this.updatedAt = now;
+  }
+  next();
+});
+
+UserSchema.pre<any>("updateOne", function (next) {
+  const now = new Date();
+  console.log("cai aqui");
+  this.updatedAt = now;
+  next();
 });
 
 export default mongoose.model("User", UserSchema);
