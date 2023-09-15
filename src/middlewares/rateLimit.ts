@@ -5,7 +5,12 @@ const limiter = rateLimit({
     max: 3, // 100 requests
     standardHeaders: 'draft-7',
     legacyHeaders: false,
-    message: 'Too many requests, please try again later.',
+    message: {
+        status: 429,
+        messageEn: 'Too many requests, please try again later.',
+        messagePt: 'Muitas requisições, por favor tente novamente mais tarde.',
+        messageEs: 'Demasiadas solicitudes, por favor inténtelo de nuevo más tarde.'
+    }
 })
 
 export default limiter
